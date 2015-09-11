@@ -1,8 +1,6 @@
 # DatabaseSyncer
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/database_syncer`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+This gem provides a rake task to simply sync the local database with the production database on Heroku. The gem in meant to be used on a Rails project.
 
 ## Installation
 
@@ -16,26 +14,29 @@ And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install database_syncer
-
 ## Usage
 
-TODO: Write usage instructions here
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/database_syncer.
-
+From the root of your rails run:
+```console
+rake db:sync:local["postgres://..."]
+```
+The "postgres://..." sting should be your Heroku DATABASE_URL and can be found by running this command:
+```console
+heroku config:get DATABASE_URL -a app-name
+```
+---
+You can also get these instructions by running:
+```console
+rake db:sync:local
+```
+Which will output:
+```console
+You need to pass in the heroku_config_database_url argument to the rake task
+$ heroku config:get DATABASE_URL -a app-name
+copy the DATABASE_URL variable and then call the rake task again
+$ rake db:sync:local["postgres://svym..."]
+```
 
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
