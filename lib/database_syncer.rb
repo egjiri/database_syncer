@@ -1,5 +1,5 @@
-require "database_syncer/version"
+require 'database_syncer/version'
 
 module DatabaseSyncer
-  # Your code goes here...
+  require 'database_syncer/railtie'
 end
