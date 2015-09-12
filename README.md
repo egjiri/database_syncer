@@ -1,6 +1,6 @@
 # DatabaseSyncer
 
-This gem provides a rake task to simply sync the local database with the production database on Heroku. The gem in meant to be used on a Rails project.
+This gem provides a rake task to simply sync the local Postgres database with the production database on Heroku. The gem in meant to be used on a Rails project.
 
 ## Installation
 
