@@ -14,27 +14,23 @@ And then execute:
 
     $ bundle
 
+## Requirements
+Git remotes on the specific app this gem is included in are used to determine the app names for the heroku production and staging apps.
+
+##### Remotes must be named as follows:
+* heroku (for production which is the default)
+* staging (for staging)
+
 ## Usage
 
-From the root of your rails run:
-```console
-rake db:sync:local["postgres://..."]
-```
-The "postgres://..." sting should be your Heroku DATABASE_URL and can be found by running this command:
-```console
-heroku config:get DATABASE_URL -a app-name
-```
----
-You can also get these instructions by running:
+##### Sync the local database from the heroku production database:
 ```console
 rake db:sync:local
 ```
-Which will output:
+
+##### Sync the staging heroku database from the heroku production database:
 ```console
-You need to pass in the heroku_config_database_url argument to the rake task
-$ heroku config:get DATABASE_URL -a app-name
-copy the DATABASE_URL variable and then call the rake task again
-$ rake db:sync:local["postgres://svym..."]
+rake db:sync:staging
 ```
 
 ## License
