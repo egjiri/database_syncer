@@ -7,7 +7,7 @@ namespace :db do
         match_database(args[:heroku_config_database_url])
 
         UI.heading 'Copying the latest data from the production site...'
-        get_remote_data
+        download_remote_data
 
         UI.heading 'Importing the data in the local database...'
         set_local_data
@@ -27,11 +27,11 @@ namespace :db do
     def match_database(database_url)
       database_url ||= `heroku config:get DATABASE_URL -a #{app_name}`.chomp
       @db = database_url.match(%r{^postgres://(.*?):(.*?)@(.*?):\d*?/(.*?)$})
-      fail "Invalid database url format" unless @db
+      fail 'Invalid database url format' unless @db
       UI.message @db
     end
 
-    def get_remote_data
+    def download_remote_data
       @export_file = File.join('tmp', 'db-data-dump.sql')
       system "export PGPASSWORD=\"#{@db[2]}\"; pg_dump -U#{@db[1]} -h#{@db[3]} -a -Tschema_migrations #{@db[4]} > #{@export_file}"
       UI.message "DB dump temporarily saved at: #{@export_file}"
