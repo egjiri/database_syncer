@@ -14,6 +14,14 @@ namespace :db do
       end
     end
 
+    desc 'This task updates the staging database with the production data from Heroku'
+    task staging: :environment do
+      UI.start 'Syncing the staging database with the produciton data from Heroku...' do
+        staging_app_name = app_name('staging')
+        system "heroku pg:copy #{app_name}::DATABASE_URL DATABASE_URL -a #{staging_app_name} --confirm #{staging_app_name}"
+      end
+    end
+
     private
 
     def match_database(database_url)
